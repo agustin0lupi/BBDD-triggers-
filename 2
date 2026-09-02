@@ -4,8 +4,8 @@ DELIMITER //
   CREATE TRIGGER impedir_insercion
   BEFORE INSERT INTO libros
   BEGIN
-    IF  THEN
-
+    IF OLD.aniopublicacion IS EQUALS TO aniopublicacion THEN
+      INSERT INTO libros(aniopublicacion) VALUES (aniopublicacion)
     END IF ;
   END //
 DELIMITER ;
