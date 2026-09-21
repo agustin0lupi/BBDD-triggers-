@@ -9,3 +9,39 @@ DELIMITER //
     END IF ;
   END //
 DELIMITER ;
+
+-- 2
+DELIMITER //
+  CREATE TRIGGER impedir_insercion_3_caracters
+  BEFORE INSERT INTO Usuarios
+  FOR EACH ROW
+  BEGIN
+    IF LENGTH(Nombre) > 3 THEN
+      INSERT INTO Usuarios(OLD.Nombre) VALUES (Nombre) ;
+    END IF ; 
+  END //
+DELIMITER ;
+
+-- Validaciones
+--1
+DELIMITER //
+  CREATE TRIGGER ISBN
+  BEFORE INSERT INTO Libros
+  FOR EACH ROW
+  BEGIN
+    IF OLD.ISBN IS NOT EQUALS TO ISBN THEN THEN
+      INSERT INTO Libros (OLD.ISBN) VALUES (ISBN)
+    END IF ;
+  END //
+DELIMITER ;
+--2
+DELIMITER //
+  CREATE TRIGGER sin_autor
+  BEFORE INSERT INTO Libros
+  FOR EACH ROW
+  BEGIN
+    IF AutorID IS NOT NULL THEN
+      INSERT INTO Libros(OLD.AutorID) VALUES (AutorID)
+    END IF ;
+  END //
+DELIMITER ;
